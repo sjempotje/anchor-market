@@ -69,17 +69,23 @@ export default function ProfileClient({
 
   async function handleSignOut() {
     setSigningOut(true)
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/")
-          router.refresh()
+
+    try {
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.push("/")
+            router.refresh()
+          },
+          onError: () => {
+            setSigningOut(false)
+          },
         },
-        onError: () => {
-          setSigningOut(false)
-        },
-      },
-    })
+      })
+    } catch (error) {
+      console.error("Sign out failed", error)
+      setSigningOut(false)
+    }
   }
 
   return (

@@ -45,14 +45,18 @@ export default function NavBarClient({ session }: { session: Session }) {
   const router = useRouter()
 
   async function handleSignOut() {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/")
-          router.refresh()
+    try {
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.push("/")
+            router.refresh()
+          },
         },
-      },
-    })
+      })
+    } catch (error) {
+      console.error("Sign out failed", error)
+    }
   }
 
   return (

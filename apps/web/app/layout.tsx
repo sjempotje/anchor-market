@@ -6,6 +6,7 @@ import { cn } from "@workspace/ui/lib/utils"
 import DefaultContainerLayout from "@/components/layouts/default"
 import { TooltipProvider } from "@workspace/ui/components/tooltip"
 import NavBar from "@/components/navbar"
+import DiscordActivityGate from "@/components/discord-activity-gate"
 
 const notoSerifHeading = Noto_Serif({
   subsets: ["latin"],
@@ -39,8 +40,10 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <TooltipProvider>
-            <NavBar />
-            <DefaultContainerLayout>{children}</DefaultContainerLayout>
+            <DiscordActivityGate>
+              <NavBar />
+              <DefaultContainerLayout>{children}</DefaultContainerLayout>
+            </DiscordActivityGate>
           </TooltipProvider>
         </ThemeProvider>
       </body>
