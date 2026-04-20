@@ -3,9 +3,16 @@ import { headers } from "next/headers"
 import { auth } from "@/lib/auth"
 
 export default async function proxy(request: NextRequest) {
+  // Discord Activities load the page with ?frame_id=... injected by the Discord client, so we can use that to skip auth checks for the Discord SDK and OAuth flows which run inside the iframe before sign-in.
+  if (request.nextUrl.searchParams.get("frame_id")) {
+    return NextResponse.next()
+  }
+
   const session = await auth.api.getSession({
     headers: await headers(),
   })
+
+  console.log("Checking authentication for", session)
 
   if (session && ["/login", "/signup"].includes(request.nextUrl.pathname)) {
     return NextResponse.redirect(new URL("/", request.url))

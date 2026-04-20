@@ -1,6 +1,7 @@
 import { betterAuth } from "better-auth"
 import Database from "better-sqlite3"
 import { nextCookies } from "better-auth/next-js"
+import { discordActivityProvider } from "./providers/discord-activity"
 
 export const auth = betterAuth({
   database: new Database("./sqlite.db"),
@@ -14,5 +15,13 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  plugins: [nextCookies()],
+  plugins: [discordActivityProvider(), nextCookies()],
+  advanced: {
+    useSecureCookies: true,
+    defaultCookieAttributes: {
+      sameSite: "none",
+      secure: true,
+    },
+  },
+  trustedOrigins: ["https://*.discordsays.com"],
 })
