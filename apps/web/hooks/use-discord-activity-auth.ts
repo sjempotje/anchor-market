@@ -127,7 +127,6 @@ export function useDiscordActivityAuth({
     try {
       await discordSdk.ready()
 
-      // open Discord's OAuth authorization flow and obtain a code.
       const { code } = await discordSdk.commands.authorize({
         client_id: clientId,
         response_type: "code",
@@ -183,7 +182,7 @@ export function useDiscordActivityAuth({
     void signIn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
+  
   return {
     status: state.status,
     user: state.status === "success" ? state.user : null,
