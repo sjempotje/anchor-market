@@ -50,6 +50,7 @@ export default function ProfileClient({
 }) {
   const router = useRouter()
   const [signingOut, setSigningOut] = useState(false)
+  const [deletingAccount, setDeletingAccount] = useState(false)
 
   const { user } = session
 
@@ -85,6 +86,29 @@ export default function ProfileClient({
     } catch (error) {
       console.error("Sign out failed", error)
       setSigningOut(false)
+    }
+  }
+
+  async function handleDeleteAccount() {
+    setDeletingAccount(true)
+
+    try {
+      await authClient.deleteUser({
+        fetchOptions: {
+          onSuccess: () => {
+            console.log("Account deleted successfully")
+            router.push("/")
+            router.refresh()
+          },
+          onError: (error) => {
+            console.error("Account deletion failed", error)
+            setDeletingAccount(false)
+          },
+        },
+      })
+    } catch (error) {
+      console.error("Account deletion failed", error)
+      setDeletingAccount(false)
     }
   }
 
@@ -249,9 +273,36 @@ export default function ProfileClient({
                 Permanently delete your account and all associated data.
               </p>
             </div>
-            <Button variant="destructive" size="sm" disabled>
-              Delete Account
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  disabled={deletingAccount}
+                >
+                  Delete Account
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete account?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete your
+                    account and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel disabled={deletingAccount}>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleDeleteAccount}
+                    disabled={deletingAccount}
+                    className="text-destructive-foreground bg-destructive hover:bg-destructive/90"
+                  >
+                    {deletingAccount ? "Deleting..." : "Delete Account"}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </CardContent>
       </Card>

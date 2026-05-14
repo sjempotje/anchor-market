@@ -86,8 +86,8 @@ export const discordActivityProvider = (): BetterAuthPlugin => {
 
           const existingAccount =
             await ctx.context.internalAdapter.findAccountByProviderId(
-              accountId,
-              PROVIDER_ID
+              PROVIDER_ID,
+              accountId
             )
 
           let user
