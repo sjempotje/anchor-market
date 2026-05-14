@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { useId } from "react";
+import { useId } from "react"
 import {
   AreaChart,
   Area,
@@ -8,25 +8,25 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
-import { Skeleton } from "@workspace/ui/components/skeleton";
-import { cn } from "@workspace/ui/lib/utils";
+} from "recharts"
+import { Skeleton } from "@workspace/ui/components/skeleton"
+import { cn } from "@workspace/ui/lib/utils"
 
-import type { GroupMarket, ChartDataPoint, ChartSeries } from "../types";
-import { MarketActions } from "../market-actions";
-import { MarketVolume } from "../market-volume";
-import { ScrollingNewsFeed } from "../feeds/scrolling-news-feed";
-import { ChartTooltip } from "../charts/chart-tooltip";
+import type { GroupMarket, ChartDataPoint, ChartSeries } from "../types"
+import { MarketActions } from "../market-actions"
+import { MarketVolume } from "../market-volume"
+import { ScrollingNewsFeed } from "../feeds/scrolling-news-feed"
+import { ChartTooltip } from "../charts/chart-tooltip"
 
 /**
  * Group market panel displaying options, chart, and news feed.
  */
 
 export function GroupMarketPanel({ market }: { market: GroupMarket }) {
-  const gradientId = useId();
+  const gradientId = useId()
 
   return (
-    <div className="relative w-full h-full flex flex-col gap-4">
+    <div className="relative flex h-full w-full flex-col gap-4">
       <a
         className="absolute inset-0"
         aria-hidden
@@ -35,12 +35,12 @@ export function GroupMarketPanel({ market }: { market: GroupMarket }) {
       />
 
       {/* Header */}
-      <div className="flex gap-4 w-full justify-between items-start md:pb-1.5 relative">
+      <div className="relative flex w-full items-start justify-between gap-4 md:pb-1.5">
         <div className="flex min-w-0 flex-1 items-center gap-4">
           {market.iconUrl && (
-            <div className="shrink-0 hidden md:block">
+            <div className="hidden shrink-0 md:block">
               <div
-                className="rounded-md overflow-hidden relative"
+                className="relative overflow-hidden rounded-md"
                 style={{
                   height: 56,
                   width: 56,
@@ -52,15 +52,15 @@ export function GroupMarketPanel({ market }: { market: GroupMarket }) {
                 <img
                   src={market.iconUrl}
                   alt={`icon for ${market.title}`}
-                  className="object-cover absolute inset-0 w-full h-full"
+                  className="absolute inset-0 h-full w-full object-cover"
                   loading="lazy"
                 />
               </div>
             </div>
           )}
 
-          <div className="flex flex-col-reverse items-start gap-0.5 min-w-0 flex-1">
-            <h3 className="group/title relative w-full min-w-0 font-semibold text-2xl text-pretty md:line-clamp-1">
+          <div className="flex min-w-0 flex-1 flex-col-reverse items-start gap-0.5">
+            <h3 className="group/title relative w-full min-w-0 text-2xl font-semibold text-pretty md:line-clamp-1">
               <a
                 className="group-hover/title:underline after:absolute after:inset-0 md:break-all"
                 href={market.href}
@@ -68,15 +68,15 @@ export function GroupMarketPanel({ market }: { market: GroupMarket }) {
                 {market.title}
               </a>
             </h3>
-            <div className="flex items-center gap-1 relative">
+            <div className="relative flex items-center gap-1">
               {market.categories.map((cat, i) => (
                 <span key={cat.href} className="flex items-center gap-1">
                   {i > 0 && (
-                    <span className="text-muted-foreground text-sm">·</span>
+                    <span className="text-sm text-muted-foreground">·</span>
                   )}
                   <a
                     href={cat.href}
-                    className="text-sm font-[540] text-muted-foreground hover:text-muted-foreground/70 transition-colors"
+                    className="text-sm font-[540] text-muted-foreground transition-colors hover:text-muted-foreground/70"
                   >
                     {cat.label}
                   </a>
@@ -89,40 +89,40 @@ export function GroupMarketPanel({ market }: { market: GroupMarket }) {
         <MarketActions title={market.title} href={market.href} />
       </div>
 
-      <div className="flex flex-col-reverse lg:flex-row gap-4 lg:gap-6 flex-1 min-h-0">
+      <div className="flex min-h-0 flex-1 flex-col-reverse gap-4 lg:flex-row lg:gap-6">
         {/* Left side */}
         <div className="relative flex flex-col gap-4 lg:w-[40%] lg:justify-between">
-          <div className="rounded-lg flex flex-col gap-2">
+          <div className="flex flex-col gap-2 rounded-lg">
             {market.options.map((option, i) => (
               <a
                 key={i}
-                className="flex items-center justify-between gap-3 group border-b border-border/30 pb-2 min-h-10"
+                className="group flex min-h-10 items-center justify-between gap-3 border-b border-border/30 pb-2"
                 href={option.href}
               >
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <p className="text-[15px] font-[450] tracking-[-0.01em] text-foreground group-hover:underline truncate">
+                <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <p className="truncate text-[15px] font-[450] tracking-[-0.01em] text-foreground group-hover:underline">
                     {option.label}
                   </p>
                 </div>
-                <span className="text-xl font-semibold text-foreground whitespace-nowrap">
+                <span className="text-xl font-semibold whitespace-nowrap text-foreground">
                   {option.probability}%
                 </span>
               </a>
             ))}
           </div>
 
-          <div className="hidden lg:flex flex-1 min-h-0 overflow-hidden">
+          <div className="hidden min-h-0 flex-1 overflow-hidden lg:flex">
             <ScrollingNewsFeed items={market.news} />
           </div>
         </div>
 
         {/* Right side */}
-        <div className="relative flex-1 min-h-0 hidden lg:flex flex-col justify-center h-full">
-          <div className="flex-1 min-h-0">
-            <div className="h-full w-full relative">
+        <div className="relative hidden h-full min-h-0 flex-1 flex-col justify-center lg:flex">
+          <div className="min-h-0 flex-1">
+            <div className="relative h-full w-full">
               <div className="absolute inset-0 overflow-hidden">
                 {/* Legend */}
-                <div className="flex flex-wrap gap-x-3 gap-y-1 mb-4 mt-1.5">
+                <div className="mt-1.5 mb-4 flex flex-wrap gap-x-3 gap-y-1">
                   {market.chartSeries.map((s) => (
                     <div
                       key={s.key}
@@ -132,9 +132,9 @@ export function GroupMarketPanel({ market }: { market: GroupMarket }) {
                         className="size-2 rounded-full"
                         style={{ backgroundColor: s.color }}
                       />
-                      <p className="text-muted-foreground text-sm">
+                      <p className="text-sm text-muted-foreground">
                         {s.label}
-                        <span className="text-foreground font-semibold ml-0.5">
+                        <span className="ml-0.5 font-semibold text-foreground">
                           &nbsp;{s.currentValue}%
                         </span>
                       </p>
@@ -216,5 +216,5 @@ export function GroupMarketPanel({ market }: { market: GroupMarket }) {
         resolutionType={market.resolutionType}
       />
     </div>
-  );
+  )
 }

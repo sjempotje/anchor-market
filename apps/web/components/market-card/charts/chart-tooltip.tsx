@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
 /**
  * Custom tooltip for recharts charts displaying percentage values.
  */
 
 interface ChartTooltipProps {
-  active?: boolean;
-  payload?: { name: string; value: number; color: string }[];
-  label?: string;
-  formatter?: (value: number) => string;
+  active?: boolean
+  payload?: { name: string; value: number; color: string }[]
+  label?: string
+  formatter?: (value: number) => string
 }
 
 export function ChartTooltip({
@@ -17,11 +17,11 @@ export function ChartTooltip({
   label,
   formatter,
 }: ChartTooltipProps) {
-  if (!active || !payload?.length) return null;
-  const formatValue = formatter ?? ((v) => `${(v * 100).toFixed(0)}%`);
+  if (!active || !payload?.length) return null
+  const formatValue = formatter ?? ((v) => `${(v * 100).toFixed(0)}%`)
   return (
-    <div className="bg-background border border-border rounded-lg shadow-md p-2.5 text-xs space-y-1">
-      <p className="text-muted-foreground font-medium">{label}</p>
+    <div className="space-y-1 rounded-lg border border-border bg-background p-2.5 text-xs shadow-md">
+      <p className="font-medium text-muted-foreground">{label}</p>
       {payload.map((entry) => (
         <div key={entry.name} className="flex items-center gap-2">
           <div
@@ -29,11 +29,10 @@ export function ChartTooltip({
             style={{ backgroundColor: entry.color }}
           />
           <span className="text-foreground">
-            {entry.name}:{" "}
-            <strong>{formatValue(entry.value)}</strong>
+            {entry.name}: <strong>{formatValue(entry.value)}</strong>
           </span>
         </div>
       ))}
     </div>
-  );
+  )
 }

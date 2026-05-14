@@ -1,4 +1,4 @@
-import type { Market } from "./types";
+import type { Market } from "./types"
 
 /**
  * Sample market data for preview and testing purposes.
@@ -60,7 +60,8 @@ export const sampleMarkets: Market[] = [
         source: "The New York Times",
         sourceDomain: "www.nytimes.com",
         timeAgo: "4d ago",
-        headline: "Tehran and Trump Send Mixed Signals Ahead of Potential Talks",
+        headline:
+          "Tehran and Trump Send Mixed Signals Ahead of Potential Talks",
         href: "/event/us-x-iran-permanent-peace-deal-by",
       },
       {
@@ -82,7 +83,8 @@ export const sampleMarkets: Market[] = [
         source: "The Washington Post",
         sourceDomain: "www.washingtonpost.com",
         timeAgo: "1d ago",
-        headline: "Israel and Lebanon extend ceasefire for three weeks, Trump says",
+        headline:
+          "Israel and Lebanon extend ceasefire for three weeks, Trump says",
         href: "/event/us-x-iran-permanent-peace-deal-by",
       },
     ],
@@ -106,14 +108,14 @@ export const sampleMarkets: Market[] = [
       color: "#e00020",
       probability: 0.96,
       href: "/event/lol-t1-bro2-2026-04-25?outcomeIndex=0",
-      logoUrl: ""
+      logoUrl: "",
     },
     team2: {
       name: "HANJIN BRION",
       color: "#00582c",
       probability: 0.04,
       href: "/event/lol-t1-bro2-2026-04-25?outcomeIndex=1",
-      logoUrl: ""
+      logoUrl: "",
     },
     chartData: [
       { date: "Pre", team1: 0.7, team2: 0.3 },
@@ -332,4 +334,4 @@ export const sampleMarkets: Market[] = [
       },
     ],
   },
-];
+]

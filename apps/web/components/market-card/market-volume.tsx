@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { IconRefresh } from "@tabler/icons-react";
+import { IconRefresh } from "@tabler/icons-react"
 
 /**
  * Market volume and metadata display component.
@@ -12,10 +12,10 @@ export function MarketVolume({
   isLive,
   resolutionType,
 }: {
-  volume: string;
-  endDate?: string;
-  isLive?: boolean;
-  resolutionType?: string;
+  volume: string
+  endDate?: string
+  isLive?: boolean
+  resolutionType?: string
 }) {
   return (
     <div className="flex items-center justify-between">
@@ -28,10 +28,10 @@ export function MarketVolume({
           <>
             <div className="flex items-center gap-1.5">
               <div className="relative flex items-center justify-center">
-                <div className="size-1.75 rounded-full bg-red-500 relative z-10" />
-                <div className="absolute -inset-px size-2.25 rounded-full bg-red-500 opacity-75 animate-ping" />
+                <div className="relative z-10 size-1.75 rounded-full bg-red-500" />
+                <div className="absolute -inset-px size-2.25 animate-ping rounded-full bg-red-500 opacity-75" />
               </div>
-              <span className="text-red-500 uppercase text-xs font-semibold">
+              <span className="text-xs font-semibold text-red-500 uppercase">
                 Live
               </span>
             </div>
@@ -50,5 +50,5 @@ export function MarketVolume({
         )}
       </div>
     </div>
-  );
+  )
 }

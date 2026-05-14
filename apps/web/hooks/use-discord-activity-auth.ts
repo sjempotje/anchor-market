@@ -182,7 +182,7 @@ export function useDiscordActivityAuth({
     void signIn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  
+
   return {
     status: state.status,
     user: state.status === "success" ? state.user : null,

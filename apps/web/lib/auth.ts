@@ -26,7 +26,7 @@ export const auth = betterAuth({
   user: {
     deleteUser: {
       enabled: true,
-    }
+    },
   },
   trustedOrigins: ["https://*.discordsays.com"],
 })
