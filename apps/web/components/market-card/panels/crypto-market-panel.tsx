@@ -21,29 +21,8 @@ import { MarketActions } from "../market-actions"
  * Crypto market panel displaying price charts with up/down betting.
  */
 
-export function CryptoMarketPanel({ market }: { market: CryptoMarket }) {
-  const upColor = "#ff9900"
-  const downColor = "#6b7280"
-
-  const [timeLeft, setTimeLeft] = useState(market.endsIn)
-
-  useEffect(() => {
-    if (!timeLeft) return
-    const id = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (!prev) return prev
-        const totalSec = prev.minutes * 60 + prev.seconds - 1
-        if (totalSec <= 0) {
-          clearInterval(id)
-          return { minutes: 0, seconds: 0 }
-        }
-        return { minutes: Math.floor(totalSec / 60), seconds: totalSec % 60 }
-      })
-    }, 1000)
-    return () => clearInterval(id)
-  }, [])
-
-  const Header = () => (
+function CryptoHeader({ market }: { market: CryptoMarket }) {
+  return (
     <div className="group relative flex w-full items-center gap-4">
       {market.iconUrl && (
         <div className="hidden shrink-0 md:block">
@@ -83,6 +62,28 @@ export function CryptoMarketPanel({ market }: { market: CryptoMarket }) {
       </div>
     </div>
   )
+}
+
+export function CryptoMarketPanel({ market }: { market: CryptoMarket }) {
+  const upColor = "#ff9900"
+
+  const [timeLeft, setTimeLeft] = useState(market.endsIn)
+
+  useEffect(() => {
+    if (!market.endsIn) return
+    const id = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (!prev) return prev
+        const totalSec = prev.minutes * 60 + prev.seconds - 1
+        if (totalSec <= 0) {
+          clearInterval(id)
+          return { minutes: 0, seconds: 0 }
+        }
+        return { minutes: Math.floor(totalSec / 60), seconds: totalSec % 60 }
+      })
+    }, 1000)
+    return () => clearInterval(id)
+  }, [market.endsIn])
 
   return (
     <div className="relative flex h-full w-full flex-col gap-2">
@@ -95,14 +96,14 @@ export function CryptoMarketPanel({ market }: { market: CryptoMarket }) {
 
       {/* Mobile header */}
       <div className="lg:hidden">
-        <Header />
+        <CryptoHeader market={market} />
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col-reverse gap-4 lg:flex-row lg:gap-6">
         {/* Left: buttons + comments */}
         <div className="relative flex flex-col gap-4 lg:w-[40%] lg:justify-between">
           <div className="hidden lg:block">
-            <Header />
+            <CryptoHeader market={market} />
           </div>
 
           {/* Up/Down buttons */}

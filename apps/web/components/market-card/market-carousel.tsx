@@ -9,10 +9,6 @@ import { GroupMarketPanel } from "./panels/group-market-panel"
 import { MatchupMarketPanel } from "./panels/matchup-market-panel"
 import { CryptoMarketPanel } from "./panels/crypto-market-panel"
 
-/**
- * Individual market panel wrapper with slide animation.
- */
-
 function MarketPanel({
   market,
   index,
@@ -49,47 +45,36 @@ export interface MarketCarouselProps {
 
 const SLIDE_DURATION = 7000
 
-/**
- * Market carousel component with auto-advancing slides and navigation.
- */
-
 export function MarketCarousel({ markets, className }: MarketCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0)
-  const [progress, setProgress] = useState(0)
+  // Key incremented on each slide change to restart the CSS animation
+  const [animKey, setAnimKey] = useState(0)
+
+  const advance = useCallback(() => {
+    setActiveIndex((i) => (i + 1) % markets.length)
+    setAnimKey((k) => k + 1)
+  }, [markets.length])
 
   const goTo = useCallback((i: number) => {
     setActiveIndex(i)
-    setProgress(0)
+    setAnimKey((k) => k + 1)
   }, [])
 
   const prev = useCallback(() => {
     setActiveIndex((i) => (i - 1 + markets.length) % markets.length)
-    setProgress(0)
+    setAnimKey((k) => k + 1)
   }, [markets.length])
 
   const next = useCallback(() => {
     setActiveIndex((i) => (i + 1) % markets.length)
-    setProgress(0)
+    setAnimKey((k) => k + 1)
   }, [markets.length])
 
   useEffect(() => {
     if (markets.length <= 1) return
-    setProgress(0)
-    const start = Date.now()
-    let raf: number
-    const tick = () => {
-      const elapsed = Date.now() - start
-      const p = Math.min(elapsed / SLIDE_DURATION, 1)
-      setProgress(p)
-      if (p < 1) {
-        raf = requestAnimationFrame(tick)
-      } else {
-        setActiveIndex((i) => (i + 1) % markets.length)
-      }
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [activeIndex, markets.length])
+    const id = setTimeout(advance, SLIDE_DURATION)
+    return () => clearTimeout(id)
+  }, [animKey, markets.length, advance])
 
   const prevMarket =
     markets[(activeIndex - 1 + markets.length) % markets.length]!
@@ -122,10 +107,10 @@ export function MarketCarousel({ markets, className }: MarketCarouselProps) {
                   aria-label={`Market ${i + 1} (current)`}
                 >
                   <div
+                    key={animKey}
                     className="absolute top-0 left-0 h-full w-full origin-left rounded-full bg-foreground"
                     style={{
-                      transform: `scaleX(${progress})`,
-                      transition: "none",
+                      animation: `progress-fill ${SLIDE_DURATION}ms linear forwards`,
                     }}
                   />
                 </button>

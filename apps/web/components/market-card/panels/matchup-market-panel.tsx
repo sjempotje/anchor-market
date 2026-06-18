@@ -19,8 +19,8 @@ import { ChartTooltip } from "../charts/chart-tooltip"
  * Matchup market panel displaying two competing teams/options with live scores and charts.
  */
 
-export function MatchupMarketPanel({ market }: { market: MatchupMarket }) {
-  const Header = () => (
+function MatchupHeader({ market }: { market: MatchupMarket }) {
+  return (
     <div className="relative flex w-full items-center gap-4">
       <div className="flex flex-col-reverse items-start gap-1">
         <h3 className="group/title relative text-2xl font-semibold">
@@ -49,7 +49,9 @@ export function MatchupMarketPanel({ market }: { market: MatchupMarket }) {
       </div>
     </div>
   )
+}
 
+export function MatchupMarketPanel({ market }: { market: MatchupMarket }) {
   return (
     <div className="relative flex h-full w-full flex-col gap-2">
       <a
@@ -61,7 +63,7 @@ export function MatchupMarketPanel({ market }: { market: MatchupMarket }) {
 
       {/* Mobile header */}
       <div className="lg:hidden">
-        <Header />
+        <MatchupHeader market={market} />
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col-reverse gap-4 lg:flex-row lg:gap-6">
@@ -69,7 +71,7 @@ export function MatchupMarketPanel({ market }: { market: MatchupMarket }) {
         <div className="relative flex flex-col gap-4 lg:w-[40%] lg:justify-between">
           {/* Desktop header */}
           <div className="hidden lg:block">
-            <Header />
+            <MatchupHeader market={market} />
           </div>
 
           {/* Team buttons */}
