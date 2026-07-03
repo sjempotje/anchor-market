@@ -19,39 +19,22 @@ import {
   IconRefresh,
   IconPlus,
   IconSend,
-  IconArrowsLeftRight,
-  IconCash,
-  IconCheck,
 } from "@tabler/icons-react"
 import type { WalletDto, TransactionDto } from "@/lib/api/wallet"
 
 function TransactionIcon({ type }: { type: TransactionDto["type"] }) {
-  switch (type) {
-    case "deposit":
-      return <IconArrowUpRight size={18} stroke={1.5} className="text-emerald-500" />
-    case "withdrawal":
-      return <IconArrowDownRight size={18} stroke={1.5} className="text-red-500" />
-    case "trade":
-      return <IconArrowsLeftRight size={18} stroke={1.5} className="text-blue-500" />
-    case "fee":
-      return <IconCash size={18} stroke={1.5} className="text-amber-500" />
-    case "settlement":
-      return <IconCheck size={18} stroke={1.5} className="text-emerald-500" />
-  }
+  return type === 1 ? (
+    <IconArrowUpRight size={18} stroke={1.5} className="text-emerald-500" />
+  ) : (
+    <IconArrowDownRight size={18} stroke={1.5} className="text-red-500" />
+  )
 }
 
 function TransactionAmount({ tx }: { tx: TransactionDto }) {
-  const amount = Number.parseFloat(tx.amount)
-  const isCredit = tx.type === "deposit" || tx.type === "settlement"
-  const isDebit = tx.type === "withdrawal" || tx.type === "fee"
-  const color = isCredit
-    ? "text-emerald-500"
-    : isDebit
-      ? "text-red-500"
-      : amount >= 0
-        ? "text-emerald-500"
-        : "text-red-500"
-  const prefix = isCredit ? "+" : isDebit ? "-" : amount >= 0 ? "+" : ""
+  const amount = Number.parseFloat(String(tx.amount))
+  const isCredit = tx.type === 1
+  const color = isCredit ? "text-emerald-500" : "text-red-500"
+  const prefix = isCredit ? "+" : "-"
 
   return (
     <span className={`font-medium tabular-nums ${color}`}>
@@ -79,13 +62,7 @@ function formatTxDate(dateStr: string) {
 }
 
 function typeLabel(type: TransactionDto["type"]): string {
-  switch (type) {
-    case "deposit": return "Deposit"
-    case "withdrawal": return "Withdrawal"
-    case "trade": return "Trade"
-    case "fee": return "Fee"
-    case "settlement": return "Settlement"
-  }
+  return type === 1 ? "Credit" : "Debit"
 }
 
 export default function WalletClient({
@@ -237,12 +214,6 @@ export default function WalletClient({
                   </div>
                   <div className="flex flex-col items-end gap-0.5">
                     <TransactionAmount tx={tx} />
-                    <span className="text-xs tabular-nums text-muted-foreground">
-                      {Number.parseFloat(tx.balanceAfter).toLocaleString("en-US", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
-                    </span>
                   </div>
                 </div>
               ))}

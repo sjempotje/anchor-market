@@ -52,10 +52,7 @@ export function MarketGridCard({ market }: { market: MarketSummary }) {
         </p>
       )}
 
-      <div className="mt-auto flex items-center justify-between pt-1 text-xs text-muted-foreground">
-        <span className="tabular-nums">
-          {formatVolume(market.volume24h)} · 24h
-        </span>
+      <div className="mt-auto flex items-center justify-end pt-1 text-xs text-muted-foreground">
         <span className="tabular-nums">
           {formatVolume(market.volumeAllTime)} Vol
         </span>

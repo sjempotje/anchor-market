@@ -16,6 +16,7 @@ import { normalizeMarket, formatVolume } from "@/lib/api/markets"
 import { MarketGridCard } from "@/components/market-card/market-grid-card"
 import { GroupActions } from "./group-actions"
 import { CreateGroupMarketButton } from "./create-group-market-button"
+import { MemberRow } from "./member-row"
 
 interface GroupMembershipRow {
   id: string
@@ -86,7 +87,6 @@ export default async function GroupPage({
         Groups
       </Link>
 
-      {/* Header */}
       <div className="mb-8 flex items-start gap-5">
         <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-muted">
           <IconUsers size={28} stroke={1.5} className="text-muted-foreground" />
@@ -148,7 +148,6 @@ export default async function GroupPage({
         </div>
       </div>
 
-      {/* Markets section */}
       <section>
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-foreground">Markets</h2>
@@ -186,25 +185,18 @@ export default async function GroupPage({
         )}
       </section>
 
-      {/* Members */}
       {isMember && members.length > 0 && (
         <section className="mt-10">
           <h2 className="mb-4 text-lg font-semibold text-foreground">Members</h2>
           <div className="flex flex-wrap gap-2">
             {members.map((membership: any) => (
-              <div
+              <MemberRow
                 key={membership.id}
-                className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-sm"
-              >
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs font-semibold text-muted-foreground">
-                  {(membership.userId ?? "?").slice(0, 1).toUpperCase()}
-                </div>
-                <span className="max-w-30 truncate text-foreground">
-                  {membership.userId === group.ownerId
-                    ? `${membership.userId?.slice(0, 8)}… (owner)`
-                    : membership.userId?.slice(0, 8) + "…"}
-                </span>
-              </div>
+                groupId={group.id!}
+                userId={membership.userId}
+                isOwner={membership.userId === group.ownerId}
+                canRemove={isOwner && membership.userId !== group.ownerId}
+              />
             ))}
           </div>
         </section>

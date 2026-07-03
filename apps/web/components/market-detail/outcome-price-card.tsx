@@ -1,7 +1,7 @@
 import { cn } from "@workspace/ui/lib/utils"
 import type { OutcomeDetail } from "@/lib/api/market-detail"
 import { Card } from "./card"
-import { formatOdds, formatPct } from "./format"
+import { formatOdds } from "./format"
 import { PriceChart, TIMEFRAMES, type ChartSeries } from "./price-chart"
 
 export function OutcomePriceCard({
@@ -30,18 +30,6 @@ export function OutcomePriceCard({
           <span className="text-2xl font-bold tabular-nums text-foreground">
             {formatOdds(price)}
           </span>
-          {selected.price && (
-            <span
-              className={cn(
-                "text-sm font-medium tabular-nums",
-                selected.price.change24hPercent >= 0
-                  ? "text-emerald-500"
-                  : "text-red-500"
-              )}
-            >
-              {formatPct(selected.price.change24hPercent)}
-            </span>
-          )}
           <span className="text-sm text-muted-foreground">
             {selected.outcome.title}
           </span>

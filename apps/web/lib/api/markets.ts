@@ -57,7 +57,7 @@ export function normalizeMarket(m: any): MarketSummary {
     imageUrl: m.imageUrl ?? m.thumbnail ?? undefined,
     status: m.status ?? 0,
     volume24h: toNumber(m.volume24h),
-    volumeAllTime: toNumber(m.volumeAllTime),
+    volumeAllTime: toNumber(m.totalBetAmount ?? m.volumeAllTime),
     featured: m.featured ?? false,
     resolutionDeadline: m.resolutionDeadline ?? undefined,
     resolutionSource: m.resolutionSource ?? undefined,

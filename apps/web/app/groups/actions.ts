@@ -87,6 +87,24 @@ export async function leaveGroup(groupId: string): Promise<JoinGroupResult> {
   }
 }
 
+export async function removeGroupMember(
+  groupId: string,
+  userId: string
+): Promise<JoinGroupResult> {
+  const session = await auth.api.getSession({ headers: await headers() })
+  if (!session?.user?.id) {
+    return { ok: false, error: "Not authenticated" }
+  }
+
+  try {
+    const api = await getServerApiClient()
+    await api.groups.apiGroupsIdMembersUserIdDelete(groupId, userId)
+    return { ok: true }
+  } catch (e) {
+    return { ok: false, error: extractError(e, "Failed to remove member") }
+  }
+}
+
 export interface CreateGroupMarketInput {
   groupId: string
   title: string
