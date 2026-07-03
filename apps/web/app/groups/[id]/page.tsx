@@ -53,7 +53,7 @@ export default async function GroupPage({
   const userId = session?.user?.id ?? null
 
   // Members: the API restricts private groups' member lists to members/owner and
-  // returns 403 otherwise — that failure just means we render the "join to see" state.
+  // returns 403 otherwise, that failure just means we render the "join to see" state.
   const members = await apiFetch<GroupMembershipRow[]>(
     `/api/groups/${id}/members`,
     token

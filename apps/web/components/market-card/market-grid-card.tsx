@@ -6,7 +6,7 @@ import { formatVolume } from "@/lib/api/markets"
 
 /**
  * Compact market card for the discovery grid. Renders from the `/api/markets`
- * snapshot, which has no outcomes/prices — those load on the detail page.
+ * snapshot, which has no outcomes/prices, those load on the detail page.
  */
 export function MarketGridCard({ market }: { market: MarketSummary }) {
   return (

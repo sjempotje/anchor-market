@@ -90,7 +90,7 @@ export function OrderTicket({
     if (sessionLoading) return "Loading…"
     if (!token) return "Log in to trade"
     if (resolved) return "Market resolved"
-    if (isHalted) return `Trading halted — resolves in <${HALT_MINUTES} min`
+    if (isHalted) return `Trading halted, resolves in <${HALT_MINUTES} min`
     if (!selectedId) return "Select an outcome"
     if (shares <= 0) return "Enter a quantity"
     if (priceCents < 1 || priceCents > 99) return "Price must be 1–99¢"

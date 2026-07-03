@@ -52,7 +52,7 @@ export function ResolvedBanner({ winnerTitle }: { winnerTitle: string }) {
   return (
     <div className="mt-4 flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-600 dark:text-emerald-400">
       <IconTrophy size={18} stroke={1.5} />
-      Resolved — <span className="font-semibold">{winnerTitle}</span> won.
+      Resolved, <span className="font-semibold">{winnerTitle}</span> won.
     </div>
   )
 }

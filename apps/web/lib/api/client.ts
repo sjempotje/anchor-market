@@ -11,7 +11,7 @@ import {
 } from "@sjempotje/anchormarket-sdk-typescript"
 
 // Server-only: all backend calls go through server actions/components, which talk
-// to the .NET API directly by URL — no browser CORS/rewrite proxy involved.
+// to the .NET API directly by URL, no browser CORS/rewrite proxy involved.
 const BASE_PATH =
   process.env.NEXT_PUBLIC_API_URL ??
   process.env.NEXT_PUBLIC_API_BASE_URL ??
@@ -22,7 +22,7 @@ function createConfig(accessToken?: string) {
     basePath: BASE_PATH,
     accessToken,
     // The generated SDK only attaches the Bearer header for operations whose OpenAPI
-    // spec declares a security requirement — which the backend's document transformer
+    // spec declares a security requirement, which the backend's document transformer
     // skips for [AllowAnonymous] actions. Several of those endpoints (e.g. group/market
     // GetById) still read the caller's identity *when present* to gate private data, so
     // the header must go out unconditionally via baseOptions, not per-operation codegen.

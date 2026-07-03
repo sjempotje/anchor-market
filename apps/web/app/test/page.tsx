@@ -6,7 +6,7 @@ export default function TestPage() {
   return (
     <div className="min-h-screen bg-background p-8">
       <h1 className="mb-6 text-2xl font-bold text-foreground">
-        Market Card — Component Preview
+        Market Card, Component Preview
       </h1>
 
       <div className="gap-8 lg:flex lg:flex-col">

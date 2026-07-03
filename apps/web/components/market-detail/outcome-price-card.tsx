@@ -64,7 +64,7 @@ export function OutcomePriceCard({
         </div>
       </div>
       <p className="mb-3 text-xs text-muted-foreground">
-        Live implied odds from the betting pool — reflects the market right now, not a
+        Live implied odds from the betting pool, reflects the market right now, not a
         price you lock in by betting.
       </p>
       {chartSeries.length > 1 && (

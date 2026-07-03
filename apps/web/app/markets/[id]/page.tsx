@@ -24,7 +24,7 @@ export default async function MarketPage({
   const session = await auth.api.getSession({ headers: await headers() })
   const userId = session?.user?.id ?? null
 
-  // The creator assigns a specific resolver at market-creation time — only that
+  // The creator assigns a specific resolver at market-creation time, only that
   // person can resolve it, not "any member other than the creator".
   const canResolve = !!userId && detail.market.assignedResolverId === userId
 

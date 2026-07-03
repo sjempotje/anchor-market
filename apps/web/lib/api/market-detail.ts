@@ -62,7 +62,7 @@ export interface TradeSummary {
 }
 
 export interface MarketFeed {
-  /** Feed registration ID — used to fetch stored price history for non-Binance feeds. */
+  /** Feed registration ID, used to fetch stored price history for non-Binance feeds. */
   feedId: string
   /** Adapter type, e.g. "BinanceCrypto" or "HypixelBazaar". */
   adapterType: string
@@ -74,7 +74,7 @@ export interface MarketDetail {
   market: MarketSummary
   outcomes: OutcomeDetail[]
   trades: TradeSummary[]
-  /** Non-null for feed-backed markets — drives charting the underlying price. */
+  /** Non-null for feed-backed markets, drives charting the underlying price. */
   feed: MarketFeed | null
   feedValue: number | null
   winningOutcomeId: string | null
@@ -208,7 +208,7 @@ export async function getMarketDetail(
     : []
 
   // Implied probability, derived from each outcome's share of the market's total bet
-  // amount (matches the backend's price-update broadcast formula) — used as the
+  // amount (matches the backend's price-update broadcast formula), used as the
   // current price and as a fallback seed when there's no stored history yet.
   const marketTotal = outcomes.reduce((sum, o) => sum + o.totalBetAmount, 0)
 

@@ -5,7 +5,7 @@
  * of OpenAPI, so this small client is hand-wired. REST loads the initial
  * snapshot; these frames patch the same store keyed by `outcomeId` / `marketId`.
  *
- * See the Frontend Integration Guide ("WebSocket — live updates") for the
+ * See the Frontend Integration Guide ("WebSocket, live updates") for the
  * protocol this implements.
  */
 

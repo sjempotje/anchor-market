@@ -35,7 +35,7 @@ export default function MarketDetailClient({
     Object.fromEntries(
       outcomes.map((o) => {
         if (o.priceHistory.length > 0) return [o.outcome.id, o.priceHistory]
-        // No stored history yet — seed a flat two-point line at the current
+        // No stored history yet, seed a flat two-point line at the current
         // price so the chart renders immediately instead of the empty state.
         const price = o.price?.currentPrice ?? 0
         const nowMs = Date.now()
@@ -76,7 +76,7 @@ export default function MarketDetailClient({
       const msg = m as { outcomeId: string; price: number; timestamp: string }
       const t = new Date(msg.timestamp).getTime()
 
-      // History keeps every point but must stay chronologically sorted — arrival
+      // History keeps every point but must stay chronologically sorted, arrival
       // order across concurrent per-outcome broadcasts isn't guaranteed.
       setHistory((prev) => ({
         ...prev,

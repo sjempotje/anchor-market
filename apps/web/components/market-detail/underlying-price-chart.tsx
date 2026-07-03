@@ -106,7 +106,7 @@ export function UnderlyingPriceChart({
       strikeLineRef.current = null
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // intentionally only on mount — tf changes handled via applyOptions below
+  }, []) // intentionally only on mount, tf changes handled via applyOptions below
 
   // Update time/price scale options when tf changes
   useEffect(() => {
@@ -118,7 +118,7 @@ export function UnderlyingPriceChart({
     })
   }, [tf])
 
-  // Fetch historical data — Binance klines for crypto, stored feed results for others
+  // Fetch historical data, Binance klines for crypto, stored feed results for others
   useEffect(() => {
     let cancelled = false
     setTimeout(() => setStatus("loading"), 0)
@@ -138,7 +138,7 @@ export function UnderlyingPriceChart({
           setStatus("ok")
         })
         .catch(() => {
-          // Binance klines failed (rate limit, network error, etc.) — fall back to stored feed history
+          // Binance klines failed (rate limit, network error, etc.), fall back to stored feed history
           if (cancelled || !feedId) return
           fetch(`/api/feeds/${feedId}/history?limit=300`)
             .then((r) => r.json())
@@ -175,7 +175,7 @@ export function UnderlyingPriceChart({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isBinance, symbol, feedId, tf])
 
-  // Load historical base data with setData — also includes any live points collected before base loaded
+  // Load historical base data with setData, also includes any live points collected before base loaded
   useEffect(() => {
     const series = seriesRef.current
     if (!series) return
@@ -194,7 +194,7 @@ export function UnderlyingPriceChart({
 
     if (points.length < 1) return
     series.setData(points)
-    // All live points up to now are baked in — don't re-push them
+    // All live points up to now are baked in, don't re-push them
     pushedLiveCountRef.current = live.length
 
     setTimeout(() => {
@@ -203,7 +203,7 @@ export function UnderlyingPriceChart({
     }, 0)
     scrollToNow()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [base, tf]) // runs when base reloads (tf change) — live handled separately
+  }, [base, tf]) // runs when base reloads (tf change), live handled separately
 
   // Push each new live tick incrementally via series.update() for smooth movement
   useEffect(() => {
@@ -220,7 +220,7 @@ export function UnderlyingPriceChart({
       setCurrent(live.at(-1)?.price ?? null)
       scrollToNow()
     }
-  // scrollToNow is stable — reads tfRef internally, no stale closure
+  // scrollToNow is stable, reads tfRef internally, no stale closure
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [live])
 
@@ -248,7 +248,7 @@ export function UnderlyingPriceChart({
   useEffect(() => {
     const id = setInterval(scrollToNow, 1_000)
     return () => clearInterval(id)
-  // scrollToNow is stable — reads tfRef internally, no stale closure
+  // scrollToNow is stable, reads tfRef internally, no stale closure
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

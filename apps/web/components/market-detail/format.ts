@@ -1,4 +1,4 @@
-/** Formats an implied probability (0-1) as a percentage — this app has no fixed-price shares. */
+/** Formats an implied probability (0-1) as a percentage, this app has no fixed-price shares. */
 export function formatOdds(p: number): string {
   return `${(p * 100).toFixed(1)}%`
 }

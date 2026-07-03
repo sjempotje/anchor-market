@@ -24,7 +24,7 @@ export interface ResolverCandidate {
 
 interface CreateGroupMarketButtonProps {
   groupId: string
-  /** Other group members eligible to be picked as the resolver — the creator can't resolve their own market. */
+  /** Other group members eligible to be picked as the resolver, the creator can't resolve their own market. */
   resolverCandidates: ResolverCandidate[]
 }
 
@@ -153,7 +153,7 @@ export function CreateGroupMarketButton({ groupId, resolverCandidates }: CreateG
               ))}
             </NativeSelect>
             <p className="text-xs text-muted-foreground">
-              This person decides the outcome — you can&apos;t resolve your own market.
+              This person decides the outcome, you can&apos;t resolve your own market.
             </p>
           </div>
 

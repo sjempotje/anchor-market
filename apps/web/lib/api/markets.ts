@@ -3,7 +3,7 @@
  * marks nearly everything optional. These helpers normalize a raw `/api/markets`
  * row into the strict shape the grid renders from.
  *
- * Note: `GET /api/markets` returns markets WITHOUT outcomes or prices — load
+ * Note: `GET /api/markets` returns markets WITHOUT outcomes or prices, load
  * those per market on the detail page (getMarketOutcomes + the per-outcome
  * orderbook/price calls).
  */
@@ -24,7 +24,7 @@ export interface MarketSummary {
   /** 0 = Public, 1 = Group. */
   scope: number
   creatorId?: string
-  /** Set only for group-scoped markets — the creator-assigned resolver. */
+  /** Set only for group-scoped markets, the creator-assigned resolver. */
   assignedResolverId?: string
   /** Set only for group-scoped markets. */
   groupId?: string

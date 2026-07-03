@@ -134,7 +134,7 @@ export interface ResolveGroupMarketResult {
 
 /**
  * Resolves a group market. The backend requires the resolver to be a group member
- * other than the market's creator — a market creator can never resolve their own
+ * other than the market's creator, a market creator can never resolve their own
  * market, by design, so someone else always has to weigh in.
  */
 export async function resolveGroupMarket(

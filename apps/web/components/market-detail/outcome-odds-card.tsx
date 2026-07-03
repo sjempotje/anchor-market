@@ -21,7 +21,7 @@ export function OutcomeOddsCard({
       <div className="mb-3 flex items-baseline justify-between gap-3">
         <h2 className="text-sm font-semibold text-foreground">Current odds</h2>
         <p className="text-xs text-muted-foreground">
-          Shifts with every bet — not a locked-in rate
+          Shifts with every bet, not a locked-in rate
         </p>
       </div>
       <div className="flex flex-col gap-2">
