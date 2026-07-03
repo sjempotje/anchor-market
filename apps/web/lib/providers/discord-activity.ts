@@ -86,8 +86,8 @@ export const discordActivityProvider = (): BetterAuthPlugin => {
 
           const existingAccount =
             await ctx.context.internalAdapter.findAccountByProviderId(
-              PROVIDER_ID,
-              accountId
+              accountId,
+              PROVIDER_ID
             )
 
           let user
@@ -131,10 +131,9 @@ export const discordActivityProvider = (): BetterAuthPlugin => {
             }
 
             if (discordUser.email) {
-              const existing =
-                await ctx.context.internalAdapter.findUserByEmail(
-                  discordUser.email
-                )
+              const existing = await ctx.context.internalAdapter.findUserByEmail(
+                discordUser.email
+              )
 
               if (existing) {
                 await ctx.context.internalAdapter.linkAccount({

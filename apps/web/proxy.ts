@@ -12,8 +12,6 @@ export default async function proxy(request: NextRequest) {
     headers: await headers(),
   })
 
-  console.log("Checking authentication for", session)
-
   if (session && ["/login", "/signup"].includes(request.nextUrl.pathname)) {
     return NextResponse.redirect(new URL("/", request.url))
   }
@@ -26,5 +24,7 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: [
+    "/((?!api|manifest.json|_next/static|_next/image|.*\\.png$|.*\\.svg$|.*\\.ico$|.*\\.webmanifest$).*)",
+  ],
 }

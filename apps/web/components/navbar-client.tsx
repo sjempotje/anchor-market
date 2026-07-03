@@ -33,14 +33,27 @@ import {
   IconSettings,
   IconLogout,
   IconTrendingUp,
+  IconWallet,
+  IconUsers,
+  IconPlus,
 } from "@tabler/icons-react"
 import { Button } from "@workspace/ui/components/button"
 import { authClient } from "@/lib/auth-client"
 import type { auth } from "@/lib/auth"
+import type { WalletDto } from "@/lib/api/wallet"
+import type { CategorySummary } from "@/lib/api/markets"
 
 type Session = Awaited<ReturnType<typeof auth.api.getSession>>
 
-export default function NavBarClient({ session }: { session: Session }) {
+export default function NavBarClient({
+  session,
+  wallet,
+  categories = [],
+}: {
+  session: Session
+  wallet: WalletDto | null
+  categories?: CategorySummary[]
+}) {
   const [searchValue, setSearchValue] = useState("")
   const router = useRouter()
 
@@ -131,7 +144,28 @@ export default function NavBarClient({ session }: { session: Session }) {
             <div className="flex min-w-0 items-center gap-x-2">
               <div className="flex min-w-0 items-center gap-x-1.5 md:min-w-fit">
                 {session ? (
-                  <DropdownMenu>
+                  <>
+                    <a
+                      href="/wallet"
+                      className="hover:bg-button-ghost-bg-hover flex items-center gap-1.5 rounded-sm px-2 py-1 text-sm font-semibold transition duration-150 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none"
+                    >
+                      <IconWallet size={18} stroke={1.5} className="text-muted-foreground" />
+                      <span className="text-text">
+                        {wallet
+                          ? Number.parseFloat(wallet.balance).toLocaleString(
+                              "en-US",
+                              {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }
+                            )
+                          : "—"}{" "}
+                        <span className="text-xs text-muted-foreground">
+                          {wallet?.currency ?? "USDC"}
+                        </span>
+                      </span>
+                    </a>
+                    <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button className="hover:bg-button-ghost-bg-hover flex items-center gap-2 rounded-sm px-2 py-1 transition duration-150 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none">
                         <Avatar className="h-8 w-8">
@@ -176,6 +210,24 @@ export default function NavBarClient({ session }: { session: Session }) {
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <a
+                          href="/wallet"
+                          className="flex cursor-pointer items-center gap-2"
+                        >
+                          <IconWallet size={16} stroke={1.5} />
+                          Wallet
+                        </a>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <a
+                          href="/orders"
+                          className="flex cursor-pointer items-center gap-2"
+                        >
+                          <IconTrendingUp size={16} stroke={1.5} />
+                          Positions
+                        </a>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <a
                           href="/payment"
                           className="flex cursor-pointer items-center gap-2"
                         >
@@ -202,6 +254,7 @@ export default function NavBarClient({ session }: { session: Session }) {
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
+                  </>
                 ) : (
                   <>
                     <button className="text-body-base bg-button-ghost-bg hover:bg-button-ghost-bg-hover text-text-brand inline-flex h-9 min-w-0 shrink cursor-pointer items-center justify-center gap-2 rounded-sm px-4 py-2 font-semibold whitespace-nowrap transition duration-150 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none active:scale-[97%] disabled:pointer-events-none disabled:opacity-50 md:min-w-fit md:shrink-0 [&_svg]:pointer-events-none [&_svg]:shrink-0">
@@ -230,15 +283,30 @@ export default function NavBarClient({ session }: { session: Session }) {
       <div className="mx-auto flex w-full max-w-[1350px] min-w-0 overflow-x-auto px-4 lg:px-6">
         <div className="relative w-full">
           <div className="pointer-events-none absolute top-1 bottom-1 left-0 z-[2] w-8 bg-gradient-to-r from-background to-transparent opacity-0 transition-opacity duration-200 md:w-16" />
-          <div className="no-scrollbar flex h-12 w-full min-w-0 snap-x snap-mandatory scroll-px-3 items-center overflow-x-auto pl-0">
+          <div className="no-scrollbar flex h-12 w-full min-w-0 snap-x snap-mandatory scroll-px-3 items-center overflow-x-auto pl-0 gap-1">
             <a
               className="hover:text-text text-body-base text-text inline-flex h-full cursor-pointer items-center justify-center gap-1.5 rounded-md px-2.5 py-1 font-semibold tracking-[-0.005em] whitespace-nowrap ring-offset-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
               href="/"
-              aria-current="page"
             >
               <IconTrendingUp size={18} stroke={1.5} />
               <span>Trending</span>
             </a>
+            <a
+              className="hover:text-text text-body-base text-muted-foreground hover:bg-accent inline-flex h-full cursor-pointer items-center justify-center gap-1.5 rounded-md px-2.5 py-1 font-semibold tracking-[-0.005em] whitespace-nowrap ring-offset-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 transition-colors"
+              href="/groups"
+            >
+              <IconUsers size={18} stroke={1.5} />
+              <span>Groups</span>
+            </a>
+            {session && (
+              <a
+                className="hover:text-text text-body-base text-muted-foreground hover:bg-accent inline-flex h-full cursor-pointer items-center justify-center gap-1.5 rounded-md px-2.5 py-1 font-semibold tracking-[-0.005em] whitespace-nowrap ring-offset-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 transition-colors"
+                href="/markets/create"
+              >
+                <IconPlus size={18} stroke={1.5} />
+                <span>Create Market</span>
+              </a>
+            )}
           </div>
           <div className="pointer-events-none absolute top-1 right-0 bottom-1 z-[2] w-8 bg-gradient-to-l from-background to-transparent opacity-100 transition-opacity duration-200 md:w-16" />
         </div>

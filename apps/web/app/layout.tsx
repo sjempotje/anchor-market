@@ -7,6 +7,8 @@ import DefaultContainerLayout from "@/components/layouts/default"
 import { TooltipProvider } from "@workspace/ui/components/tooltip"
 import NavBar from "@/components/navbar"
 import DiscordActivityGate from "@/components/discord-activity-gate"
+import { Metadata } from "next"
+
 
 const notoSerifHeading = Noto_Serif({
   subsets: ["latin"],
@@ -19,6 +21,25 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+
+export const metadata: Metadata = {
+  title: "Anchor Market",
+  description: "It's a simple progressive web application made with NextJS",
+  generator: "Next.js",
+  manifest: "/manifest.json",
+  icons: {
+    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    shortcut: "/favicon-32x32.png",
+  },
+  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#fff" }],
+  viewport:
+    "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
+};
 
 export default function RootLayout({
   children,

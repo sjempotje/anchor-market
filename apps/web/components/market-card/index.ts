@@ -14,6 +14,9 @@ export type {
 export { MarketCarousel } from "./market-carousel"
 export type { MarketCarouselProps } from "./market-carousel"
 
+export { MarketsGrid } from "./markets-grid"
+export { MarketGridCard } from "./market-grid-card"
+
 export { GroupMarketPanel } from "./panels/group-market-panel"
 export { MatchupMarketPanel } from "./panels/matchup-market-panel"
 export { CryptoMarketPanel } from "./panels/crypto-market-panel"

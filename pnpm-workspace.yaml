@@ -5,3 +5,8 @@ allowBuilds:
   better-sqlite3: true
   esbuild: true
   sharp: true
+minimumReleaseAgeExclude:
+  - '@sjempotje/anchormarket-sdk-typescript@1.0.6'
+  - '@sjempotje/anchormarket-sdk-typescript@1.0.8'
+  - '@sjempotje/anchormarket-sdk-typescript@1.0.10'
+  - '@sjempotje/anchormarket-sdk-typescript@1.0.11'

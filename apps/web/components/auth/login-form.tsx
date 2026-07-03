@@ -31,7 +31,7 @@ export function LoginForm({
     await authClient.signIn.social(
       {
         provider: "discord",
-        callbackURL: "/dashboard",
+        callbackURL: "/",
       },
       {
         onRequest: () => setLoading(true),
@@ -47,7 +47,7 @@ export function LoginForm({
     await authClient.signIn.social(
       {
         provider: "google",
-        callbackURL: "/dashboard",
+        callbackURL: "/",
       },
       {
         onRequest: () => setLoading(true),

@@ -11,10 +11,16 @@ export const auth = betterAuth({
     discord: {
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
+      mapProfileToUser: (profile) => ({
+        username: profile.username as string,
+      }),
     },
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      mapProfileToUser: (profile) => ({
+        username: (profile.email as string).split("@")[0],
+      }),
     },
   },
   plugins: [discordActivityProvider(), nextCookies()],

@@ -1,9 +1,8 @@
 import LandingSection from "@/components/layouts/landing"
-import { Button } from "@workspace/ui/components/button"
 
 export default function Page() {
   return (
-    <div className="flex h-screen min-h-screen w-full justify-center">
+    <div className="flex w-full flex-1 flex-col">
       <LandingSection />
     </div>
   )
